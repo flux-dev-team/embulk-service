@@ -1,0 +1,27 @@
+{
+  "name": "embulk-service",
+  "version": "1.0.0",
+  "description": "Node dependencies for embulk service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf ./build && tsc",
+    "start": "npm run build && node build/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flux-dev-team/embulk-service.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flux-dev-team/embulk-service/issues"
+  },
+  "homepage": "https://github.com/flux-dev-team/embulk-service#readme",
+  "devDependencies": {
+    "@types/node": "^16.10.2",
+    "express": "^4.17.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.4.3"
+  }
+}
