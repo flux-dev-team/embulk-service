@@ -6,7 +6,7 @@ export enum PluginType{
 export abstract class PluginAbstract {
     plugin: PluginType;
     pluginName: string;
-    arguments: {[key:string]: string};
+    arguments: {[key:string]: any};
 
     constructor(plugin: PluginType, pluginName: string, args: {[key:string]: string}) {
         this.plugin = plugin;
@@ -15,4 +15,6 @@ export abstract class PluginAbstract {
     }
 
     abstract config(): string;
+
+    abstract checkArgs(): boolean;
 }
