@@ -13,12 +13,15 @@ const app = express()
 .use(bodyParser.urlencoded({extended: true}))
 .post('/embulk', async (req, res) => {
     const embulkPayload: EmbulkPayload = req.body;
+    // Create input plugin
     const inPlugin: null | PluginAbstract = PluginFactory.createPlugin(PluginType.IN, embulkPayload.in);
+    // Create output plugin
     const outPlugin: null | PluginAbstract = PluginFactory.createPlugin(PluginType.OUT, embulkPayload.out);
     if (inPlugin != null && outPlugin != null) {
         const embulk: Embulk = new Embulk('', '', '/tmp/embulk')
         embulk.execute(inPlugin, outPlugin);
     }
+    // Return error if any plugin could not be created
     res.status(404).end()
 })
 

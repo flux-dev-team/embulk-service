@@ -1,6 +1,7 @@
 import { PluginAbstract, PluginType } from "./PluginAbstract";
 import YAML from 'yaml'
 
+// Config for MongoDB input plugin, ref: https://github.com/embulk/embulk-input-mongodb#configuration
 type InMongoDBPluginConfig = {
     type: string;
     uri: string;
@@ -28,23 +29,13 @@ export class InMongoDBPlugin extends PluginAbstract {
             projection: this.arguments['projection'],
             json_column_name: this.arguments['json_column_name'],
         }
+        // Output string as stringified yaml
         return YAML.stringify(pluginConfig);
     }
 
     checkArgs(): boolean {
-        if (!('uri' in this.arguments)) {
-            return false;
-        }
-        if (!('collection' in this.arguments)) {
-            return false;
-        }
-        if (!('query' in this.arguments)) {
-            return false;
-        }
-        if (!('projection' in this.arguments)) {
-            return false;
-        }
-        if (!('json_column_name' in this.arguments)) {
+        if (!('uri' in this.arguments) || !('collection' in this.arguments) || !('query' in this.arguments)
+            || !('projection' in this.arguments) || !('json_column_name' in this.arguments)) {
             return false;
         }
         return true;

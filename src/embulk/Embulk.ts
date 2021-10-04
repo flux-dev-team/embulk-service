@@ -4,9 +4,12 @@ import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
 import fs from 'fs';
 
+// Main class for embulk execution
 export class Embulk {
+    // Embulk executable path
     embulkPath: string;
     JAVA_HOME: string;
+    // Directory to place generated configuration file
     configDirectory: string;
 
     constructor(embulkPath: string, JAVA_HOME: string, configDirectory?: string) {
@@ -16,6 +19,7 @@ export class Embulk {
     }
 
     execute(inPlugin: PluginAbstract, outPlugin: PluginAbstract): void {
+        // Create a random configuration file name
         const configFileName = uuidv4() + '.yml';
         if (!fs.existsSync(this.configDirectory)) {
             fs.mkdirSync(this.configDirectory);
@@ -30,6 +34,7 @@ export class Embulk {
             fs.writeFileSync(configFilePath, config, {flag: "w+"});
             const javaEnv = `JAVA_HOME="${this.JAVA_HOME}"`;
             const embulkExecutionCommand = `${javaEnv} ${this.embulkPath} run ${configFilePath}`
+            // Call Embulk executable
             execSync(embulkExecutionCommand);
         } catch (error) {
             console.error(error);
